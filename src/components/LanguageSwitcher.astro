@@ -1,0 +1,79 @@
+---
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl, getLocalizedPath } from "@/i18n/utils";
+
+const currentLang = getLangFromUrl(Astro.url);
+const currentPath = Astro.url.pathname.replace(`/${currentLang}`, "") || "/";
+---
+
+<div class="relative inline-block">
+  <button
+    id="lang-btn"
+    class="focus-outline flex items-center gap-1 p-3 sm:p-1 hover:text-accent"
+    aria-label="Switch Language"
+    aria-expanded="false"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="size-6 sm:size-5"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+      <path d="M2 12h20"></path>
+    </svg>
+    <span class="text-sm font-medium sm:hidden">{languages[currentLang]}</span>
+  </button>
+  <ul
+    id="lang-menu"
+    class="absolute right-0 top-full mt-2 hidden min-w-[120px] rounded-md border border-border bg-background shadow-lg z-50"
+  >
+    {
+      Object.entries(languages).map(([lang, label]) => (
+        <li>
+          <a
+            href={getLocalizedPath(currentPath, lang as keyof typeof languages)}
+            class:list={[
+              "block px-4 py-2 text-sm hover:bg-accent/10 hover:text-accent",
+              { "bg-accent/20 font-semibold": lang === currentLang },
+            ]}
+          >
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  function toggleLangMenu() {
+    const langBtn = document.querySelector("#lang-btn");
+    const langMenu = document.querySelector("#lang-menu");
+
+    if (!langBtn || !langMenu) return;
+
+    langBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      const isExpanded = langBtn.getAttribute("aria-expanded") === "true";
+      langBtn.setAttribute("aria-expanded", isExpanded ? "false" : "true");
+      langMenu.classList.toggle("hidden");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", () => {
+      langBtn.setAttribute("aria-expanded", "false");
+      langMenu.classList.add("hidden");
+    });
+  }
+
+  toggleLangMenu();
+  document.addEventListener("astro:after-swap", toggleLangMenu);
+</script>

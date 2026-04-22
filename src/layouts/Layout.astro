@@ -3,7 +3,10 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import { getLangFromUrl } from "@/i18n/utils";
 import "@/styles/global.css";
+
+const lang = getLangFromUrl(Astro.url);
 
 type Props = {
   title?: string;
@@ -51,7 +54,7 @@ const structuredData = {
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
+  lang={lang}
   class={`${scrollSmooth && "scroll-smooth"}`}
 >
   <head>

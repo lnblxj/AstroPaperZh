@@ -1,6 +1,9 @@
 ---
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import { SITE } from "@/config";
+import { getLangFromUrl, getLocalizedPath } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
 
 type StringTitle = { pageTitle: string };
 type ArrayTitle = { pageTitle: [string, string]; titleTransition: string };
@@ -9,7 +12,7 @@ type Props = (StringTitle | ArrayTitle) & { pageDesc?: string };
 
 const { props } = Astro;
 
-const backUrl = SITE.showBackButton ? Astro.url.pathname : "/";
+const backUrl = SITE.showBackButton ? Astro.url.pathname : getLocalizedPath("/", lang);
 ---
 
 <Breadcrumb />

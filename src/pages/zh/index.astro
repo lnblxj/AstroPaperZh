@@ -110,31 +110,3 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   </main>
   <Footer />
 </Layout>
-
-<script>
-  import { getBrowserLanguage } from "@/i18n/utils";
-
-  document.addEventListener("astro:page-load", () => {
-    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
-      ?.dataset?.layout;
-    if (indexLayout) {
-      sessionStorage.setItem("backUrl", "/");
-    }
-
-    // Auto-detect language on first visit
-    const currentPath = window.location.pathname;
-    const hasLangPrefix = /^\/(en|zh)\//.test(currentPath);
-    const isRoot = currentPath === "/";
-    const hasVisited = sessionStorage.getItem("langDetected");
-
-    if ((isRoot || !hasLangPrefix) && !hasVisited) {
-      const browserLang = getBrowserLanguage();
-      if (browserLang !== "en") {
-        sessionStorage.setItem("langDetected", "true");
-        window.location.href = `/${browserLang}${currentPath === "/" ? "" : currentPath}`;
-      } else {
-        sessionStorage.setItem("langDetected", "true");
-      }
-    }
-  });
-</script>
