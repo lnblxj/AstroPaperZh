@@ -29,3 +29,5 @@ public/pagefind
 
 # banned/disabled files
 *.ban
+
+doc/

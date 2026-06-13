@@ -57,6 +57,17 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           {t("hero.readme")}
         </LinkButton> {t("hero.moreinfo")}
       </p>
+      <p class="mt-2">
+        旧文章：
+        <LinkButton
+          class="underline decoration-dashed underline-offset-4 hover:text-accent"
+          href="https://github.com/lnblxj/BlogArchive"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          BlogArchive
+        </LinkButton>
+      </p>
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (

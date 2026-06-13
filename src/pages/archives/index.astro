@@ -34,6 +34,20 @@ const months = [
 <Layout title={`Archives | ${SITE.title}`}>
   <Header />
   <Main pageTitle="Archives" pageDesc="All the articles I've archived.">
+    <aside class="mb-8 border-s-4 border-accent bg-muted/30 px-4 py-3">
+      <p class="font-semibold">Looking for older posts?</p>
+      <p class="mt-1">
+        Posts from the previous blog are kept in the
+        <a
+          href="https://github.com/lnblxj/BlogArchive"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline decoration-dashed underline-offset-4 hover:text-accent"
+        >
+          BlogArchive GitHub repository
+        </a>.
+      </p>
+    </aside>
     {
       Object.entries(
         getPostsByGroupCondition(posts, post =>

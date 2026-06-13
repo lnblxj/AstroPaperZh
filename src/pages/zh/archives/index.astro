@@ -38,6 +38,21 @@ const months = [
 <Layout title={`${t("page.archives.title")} | ${SITE.title}`}>
   <Header />
   <Main pageTitle={t("page.archives.title")} pageDesc={t("page.archives.desc")}>
+    <aside class="mb-8 border-s-4 border-accent bg-muted/30 px-4 py-3">
+      <p class="font-semibold">在找旧文章？</p>
+      <p class="mt-1">
+        旧博客的文章没有迁移到新站，已经整理到
+        <a
+          href="https://github.com/lnblxj/BlogArchive"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline decoration-dashed underline-offset-4 hover:text-accent"
+        >
+          BlogArchive GitHub 仓库
+        </a>
+        里。
+      </p>
+    </aside>
     {
       Object.entries(
         getPostsByGroupCondition(posts, post =>
